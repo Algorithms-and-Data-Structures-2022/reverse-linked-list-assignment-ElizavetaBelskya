@@ -10,7 +10,20 @@ namespace assignment {
    *    по времени ~ O(N)
    */
   void LinkedList::ReverseIterative() {
-    // Напишите здесь свой код ...
+    Node* node = front_;
+    Node* prev = nullptr;
+    while (node != back_) {
+      auto next = node->next;
+      node->next = prev;
+      prev = node;
+      node = next;
+    }
+    if (node == back_) {
+      node->next = prev;
+    }
+    Node* n = back_;
+    back_ = front_;
+    front_ = n;
   }
 
   /**
@@ -21,12 +34,19 @@ namespace assignment {
    *    по времени ~ O(N)
    */
   void LinkedList::ReverseRecursive() {
-    // Напишите здесь свой код ...
+    reverse_recursive_helper(front_, nullptr);
+    Node* n = back_;
+    back_ = front_;
+    front_ = n;
   }
 
   // вспомогательный метод для реализации рекурсии
   void LinkedList::reverse_recursive_helper(Node*& curr, Node* prev) {
-    // Напишите здесь свой код ...
+    Node* nextNode = curr->next;
+    curr->next = prev;
+    if (nextNode != nullptr) {
+      reverse_recursive_helper(nextNode, curr);
+    }
   }
 
 }  // namespace assignment
